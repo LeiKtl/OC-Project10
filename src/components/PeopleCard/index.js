@@ -8,8 +8,8 @@ const PeopleCard = ({ imageSrc, imageAlt, position, name }) => (
         <img data-testid="card-image-testid" src={imageSrc} alt={imageAlt} />
       </div>
       <div className="PeopleCard__descriptionContainer">
-        <div className="PeopleCard__name">{name}</div>
-        <div className="PeopleCard__position">{position}</div>
+        <div data-testid="card-name-testid" className="PeopleCard__name">{name}</div>
+        <div data-testid="card-position-testid" className="PeopleCard__position">{position}</div>
       </div>
     </div>
   );
