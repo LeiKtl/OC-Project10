@@ -13,24 +13,18 @@ import Modal from "../../containers/Modal";
 import { useData } from "../../contexts/DataContext";
 
 const Page = () => {
-  // const {last} = useData()
   const { data } = useData();
   const events = data?.events || [];
 
   events?.sort((a, b) => {
-    // console.log(a.date, b.date)
     const dateA = new Date(a.date);
     const dateB = new Date(b.date);
-    // console.log(dateA,dateB)
     const epochA = dateA.getTime();
     const epochB = dateB.getTime();
-    // console.log(epochA, epochB)
     return epochB - epochA;
-    // retourner ordre decroissant
   });
 
   const last = events[0];
-  // console.log(last);
 
   return <>
     <header>
@@ -41,7 +35,7 @@ const Page = () => {
         <Slider />
       </section>
       <section className="ServicesContainer">
-        <h2 className="Title">Nos services</h2>
+        <h2 className="Title" id="nos-services">Nos services</h2>
         <p>Nous organisons des événements sur mesure partout dans le monde</p>
         <div className="ListContainer">
           <ServiceCard imageSrc="/images/priscilla-du-preez-Q7wGvnbuwj0-unsplash1.png">
@@ -70,11 +64,11 @@ const Page = () => {
         </div>
       </section>
       <section className="EventsContainer">
-        <h2 className="Title">Nos réalisations</h2>
+        <h2 className="Title" id="nos-realisations">Nos réalisations</h2>
         <EventList />
       </section>
       <section className="PeoplesContainer">
-        <h2 className="Title">Notre équipe</h2>
+        <h2 className="Title" id="notre-equipe">Notre équipe</h2>
         <p>Une équipe d’experts dédiés à l’ogranisation de vos événements</p>
         <div className="ListContainer">
           <PeopleCard
@@ -145,8 +139,8 @@ const Page = () => {
       <div className="col contact">
         <h3>Contactez-nous</h3>
         <address>45 avenue de la République, 75000 Paris</address>
-        <div>01 23 45 67 89</div>
-        <div>contact@724events.com</div>
+        <div className="phoneNumber">01 23 45 67 89</div>
+        <div className="mail">contact@724events.com</div>
         <div>
           <a href="#twitch">
             <Icon name="twitch" />
