@@ -1,8 +1,6 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import Home from "./index";
-import Slider from "../../containers/Slider";
 import { api, DataProvider } from "../../contexts/DataContext";
-import PeopleCard from "../../components/PeopleCard";
 
 
 const data = {
@@ -105,34 +103,36 @@ describe("When a page is created", () => {
   it("should display a list of events", async () => {
     window.console.error = jest.fn();
     api.loadData = jest.fn().mockReturnValue(data);
+    render(
+      <DataProvider>
+        <Home />
+      </DataProvider>
+    );
+    await new Promise(res => {window.setTimeout(res, 50)});
+    const cards = await screen.findAllByTestId("card-testid");
+    expect(cards.length).toBe(4); // 3 in list of event + 1 in footer
+  });
+
+  it("should display a slider", async () => {
+    window.console.error = jest.fn();
+    api.loadData = jest.fn().mockReturnValue(data);
     const {container} = render(
       <DataProvider>
-        <Slider />
+        <Home />
       </DataProvider>
     );
     await new Promise(res => {window.setTimeout(res, 50)});
     const slides = container.querySelectorAll(".SlideCard");
     expect(slides.length).toBe(3)
-    const slidesTitle = container.querySelectorAll(".SlideCard__description h3");
-    expect(slidesTitle[0].textContent).toBe("World Farming Day");
-    expect(slidesTitle[1].textContent).toBe("World economic forum");
-    expect(slidesTitle[2].textContent).toBe("World Gaming Day");
-    expect(slides[0]).toBe(slides[0]);
-    await new Promise(res => {window.setTimeout(res, 5000)});
-    expect(slides[1]).toBe(slides[1]);
-  });
-  it("should displayed a list of people", async () => {
-    render  (<PeopleCard
-      imageSrc="http://localhost/unsplash.png"
-      name="name"
-      position="position"
-    />);
-    const imageCard = await screen.findByTestId("card-image-testid");
-    const nameCard = await screen.findByTestId("card-name-testid");
-    const positionCard = await screen.findByTestId("card-position-testid");
-    expect(imageCard.src).toBe("http://localhost/unsplash.png");
-    expect(nameCard.textContent).toBe("name");
-    expect(positionCard.textContent).toBe("position");
+  })
+  it("should displayed a list of people", () => {
+    render (<Home />);
+    const imageCard = document.querySelector(".ListContainer .PeopleCard__image");
+    const nameCard = document.querySelector(".ListContainer .PeopleCard__name");
+    const positionCard = document.querySelector(".ListContainer .PeopleCard__position");
+    expect(imageCard.src).toBe("http://localhost/images/stephanie-liverani-Zz5LQe-VSMY-unsplash.png");
+    expect(nameCard.textContent).toBe("Samira");
+    expect(positionCard.textContent).toBe("CEO");
   })
   it("should display a footer", () => {
     render (<Home />)

@@ -5,7 +5,7 @@ import "./style.scss";
 const PeopleCard = ({ imageSrc, imageAlt, position, name }) => (
     <div className="PeopleCard">
       <div className="PeopleCard__imageContainer">
-        <img data-testid="card-image-testid" src={imageSrc} alt={imageAlt} />
+        <img className="PeopleCard__image" data-testid="card-image-testid" src={imageSrc} alt={imageAlt} />
       </div>
       <div className="PeopleCard__descriptionContainer">
         <div data-testid="card-name-testid" className="PeopleCard__name">{name}</div>
